@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+    <title>Gust-feng</title>
+    <link rel="icon" href="image/webtit.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Link to the new CSS file -->
+    <link rel="stylesheet" href="css/home.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+    
+    <div id="app">
+        <canvas id="three-bg"></canvas> 
+
+        <div v-if="showLeftClickMessage" class="top-message left-click-message">
+            {{ leftClickMessageText }}
+        </div>
+
+
+        <div class="time-indicator" ref="timeIndicatorRef">
+            <span class="shichen-name">{{ currentShichenName }}</span>
+            <span class="theme-name">{{ currentThemeDisplayName }}</span>
+        </div>
+        
+        <div class="sky-overlay" :style="skyStyle"></div>
+
+        <div class="left-word-scroll-container" ref="leftWordScrollContainerRef">
+            <div class="left-scroll-content" ref="leftScrollContentRef">
+                <span class="scroll-char">陌</span>
+                <span class="scroll-char">上</span>
+                <span class="scroll-char">花</span>
+                <span class="scroll-char">开</span>
+                <span class="scroll-char">，</span>
+                <span class="scroll-char">可</span>
+                <span class="scroll-char">缓</span>
+                <span class="scroll-char">缓</span>
+                <span class="scroll-char">归</span>
+                <span class="scroll-char">矣</span>
+            </div>
+        </div>
+
+        <div class="page-container">
+            <section class="welcome-section">
+                 <div class="welcome-container" ref="welcomeContainerRef">
+                    <h3 class="welcome-text">陌上花开</h3> 
+                    <p class="subtitle">{{ hitokotoText }}</p>
+                 </div>
+            </section>
+        </div>
+        <!-- Elegant & Dynamic Footer -->
+        <footer class="elegant-footer">
+            <div class="ef-trigger-wrapper">
+                <svg class="ef-icon-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="12" cy="5" r="1"></circle>
+                    <circle cx="12" cy="19" r="1"></circle>
+                </svg>
+            </div>
+            <div class="ef-content-wrapper">
+                <div class="ef-signature-block">
+                    <div class="ef-poetry-line">
+                        <span class="ef-poetry-text">那年红杏</span>
+                        <span class="ef-poetry-accent">·</span>
+                        <span class="ef-poetry-text">满了枝头</span>
+                    </div>
+                    <div class="ef-creator-line">
+                        <a href="https://github.com/Gust-feng" target="_blank" rel="noopener noreferrer" class="ef-creator-link">
+                            <span class="ef-creator-prefix">版权声明</span>
+                            <span class="ef-creator-name">© Gust-feng</span>
+                        </a>                        <a href="https://github.com/Gust-feng" target="_blank" rel="noopener noreferrer" class="ef-github-link" title="访问 GitHub">
+                            <i class="fab fa-github ef-github-icon"></i>
+                        </a>
+                    </div>
+                    <div class="ef-meta-line">
+                        <span class="ef-year" id="ef-dynamic-year">© 2025</span>
+                        <span class="ef-divider">|</span>
+                        <span class="ef-theme">无限进步</span>
+                        <span class="ef-divider">|</span>
+                        <span class="ef-current-time" id="ef-current-time">00:00</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- 导航栏 -->
+        <nav id="main-navigation">
+            <a href="sector/self/index.html">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="nav-text">个人页</span>
+            </a>
+            <a href="sector/blog/index.html">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14,2 14,8 20,8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10,9 9,9 8,9"></polyline>
+                </svg>
+                <span class="nav-text">博客</span>
+            </a>
+            <a href="sector/web/index.html">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88"></polygon>
+                </svg>
+                <span class="nav-text">站点推荐</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Link to the new JS files -->
+    <script src="js/text.js"></script>
+    <script src="js/home.js"></script>
+
+</body>
+</html>
